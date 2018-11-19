@@ -8,7 +8,7 @@ const Home = () => {
       <Header link={"/login"} text={"Login"} />
       <ReactHome
         navHeight={"58px"}
-        title={"React Login App Using OAuth2 & Jwt"}
+        title={"React Login App Using OAuth2 & JWT"}
         link={"Login"}
         route={"/login"}
       />

@@ -3,14 +3,38 @@ import withStyles from "react-jss";
 // import axios from "axios";
 import { OAUTH2_LOGIN_BASE_URL } from "../../redux/actions";
 import Header from "../../components/header/Header";
+import Container from "../../components/container/Container";
+import FormLogin from "../../components/form/FormLogin";
 
 const styles = theme => ({
-  container: {
-    width: "80%",
-    margin: "auto"
+  loginTitle: {
+    color: theme.textBlack,
+    padding: theme.smSpace
   },
-  login: {
-    color: theme.primary
+  loginWrapper: {
+    textAlign: "center",
+    border: `1px solid ${theme.lightBorder}`,
+    background: theme.contrastBackground,
+    color: theme.textBlack,
+    width: "40%",
+    margin: `20vmin auto`,
+    borderRadius: "4px",
+    padding: `${theme.xlSpace}`,
+  },
+  "@media screen and (max-width: 1200px)": {
+    loginWrapper: {
+      width: "60%"
+    }
+  },
+  "@media screen and (max-width: 700px)": {
+    loginWrapper: {
+      width: "80%"
+    }
+  },
+  "@media screen and (max-width: 500px)": {
+    loginWrapper: {
+      width: "90%"
+    }
   }
 });
 
@@ -86,18 +110,22 @@ class Login extends Component {
     return (
       <div>
         <Header link={"/"} text={"Home"} />
-        <div className={classes.container}>
-          <h1 className={classes.login}>Login</h1>
-          <hr />
-          <button onClick={this.loginWithFacebook}>Login with Facebook</button>
-          <button onClick={this.loginWithGoogle}>Login with Google</button>
-          <br />
-          <br />
-          <h3>URL: {this.state.url}</h3>
-        </div>
+        <Container>
+          <div className={classes.loginWrapper}>
+            <h1 className={classes.loginTitle}>Sign In With</h1>
+
+            <FormLogin
+              onSubmit={this.loginHandler}
+              onClickFacebook={this.loginWithFacebook}
+              onClickGoogle={this.loginWithGoogle}
+            />
+          </div>
+        </Container>
       </div>
     );
   }
+
+  loginHandler = () => {};
 }
 
 export default withStyles(styles)(Login);

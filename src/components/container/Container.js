@@ -2,10 +2,11 @@ import React from "react";
 import withStyles from "react-jss";
 
 const styles = {
-  container: {
+  container: props => ({
     width: "90%",
-    margin: "0 auto"
-  },
+    margin: "0 auto",
+    ...props.customStyles
+  }),
   "@media screen and (min-width: 576px)": {
     container: {
       width: "80%"

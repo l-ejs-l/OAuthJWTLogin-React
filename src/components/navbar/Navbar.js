@@ -26,6 +26,9 @@ const styles = theme => ({
     color: theme.text,
     textDecoration: "none",
     textAlign: "center"
+  },
+  brandStrong: {
+    color: theme.primary
   }
 });
 
@@ -37,7 +40,7 @@ const Navbar = props => {
         <div className={classes.wrapper}>
           <Link to={"/"} className={classes.brand}>
             <b>Brand</b>
-            logo
+            <span className={classes.brandStrong}>logo</span>
           </Link>
           <Nav link={props.link} text={props.text} />
         </div>
