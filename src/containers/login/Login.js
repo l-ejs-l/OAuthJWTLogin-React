@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import withStyles from "react-jss";
 // import axios from "axios";
-import { OAUTH2_LOGIN_BASE_URL } from "../../redux/actions";
 import Header from "../../components/header/Header";
 import Container from "../../components/container/Container";
 import FormLogin from "../../components/form/FormLogin";
+import {
+  APP_DOMAIN,
+  OAUTH2_LOGIN_URL,
+  REDIRECT,
+  REDIRECT_URI,
+  SERVER_DOMAIN
+} from "../../util/constants";
 
 const styles = theme => ({
   loginTitle: {
@@ -19,7 +25,7 @@ const styles = theme => ({
     width: "40%",
     margin: `20vmin auto`,
     borderRadius: "4px",
-    padding: `${theme.xlSpace}`,
+    padding: `${theme.xlSpace}`
   },
   "@media screen and (max-width: 1200px)": {
     loginWrapper: {
@@ -43,31 +49,12 @@ class Login extends Component {
     url: ""
   };
 
-  loginWithGoogle = () => {
-    let window1 = window.open(
-      "http://localhost:8080/" +
-        OAUTH2_LOGIN_BASE_URL +
-        "google?redirect_uri=http://localhost:3000/social-login-success?token=",
-      "_blank",
-      "height=700,width=700,status=yes,toolbar=no,menubar=no"
-    );
+  loginWithFacebook = e => {
+    this.loginWith(e, "facebook");
+  };
 
-    window1.focus();
-
-    let href = "";
-    const listener = () => {
-      try {
-        href = window1.location.href;
-        if (href.startsWith("http://localhost:3000/social-login-success")) {
-          console.log(href);
-          window.clearInterval(urlInterval);
-          this.processHref(href);
-          window1.close();
-        }
-      } catch (e) {}
-    };
-
-    let urlInterval = window.setInterval(listener, 100);
+  loginWithGoogle = e => {
+    this.loginWith(e, "google");
   };
 
   processHref = (href = "") => {
@@ -75,12 +62,13 @@ class Login extends Component {
     let url = new URL(href);
     const token = url.searchParams.get("token");
     this.setState({ url: token });
+    console.log("TOKEN", token);
   };
-  loginWithFacebook = () => {
+
+  loginWith = (e, client) => {
+    e.preventDefault();
     let window1 = window.open(
-      "http://localhost:8080/" +
-        OAUTH2_LOGIN_BASE_URL +
-        "facebook?redirect_uri=http://localhost:3000/social-login-success?token=",
+      `${SERVER_DOMAIN}${OAUTH2_LOGIN_URL}${client}${REDIRECT}`,
       "_blank",
       "height=700,width=700,status=yes,toolbar=no,menubar=no"
     );
@@ -91,8 +79,7 @@ class Login extends Component {
     const listener = () => {
       try {
         href = window1.location.href;
-        if (href.startsWith("http://localhost:3000/social-login-success")) {
-          console.log(href);
+        if (href.startsWith(`${APP_DOMAIN}${REDIRECT_URI}`)) {
           window.clearInterval(urlInterval);
           this.processHref(href);
           window1.close();
@@ -102,7 +89,7 @@ class Login extends Component {
 
     let urlInterval = window.setInterval(listener, 100);
 
-    // axios.get(OAUTH2_LOGIN_BASE_URL + "facebook").then(res => console.log(res));
+    // axios.get(OAUTH2_LOGIN_URL + "facebook").then(res => console.log(res));
   };
 
   render() {
@@ -125,7 +112,9 @@ class Login extends Component {
     );
   }
 
-  loginHandler = () => {};
+  loginHandler = e => {
+    e.preventDefault();
+  };
 }
 
 export default withStyles(styles)(Login);

@@ -1,4 +1,4 @@
-export const OAUTH2_LOGIN_BASE_URL = "oauth2/authorization/";
+
 
 export const loginWithGoogle = () => {
 
