@@ -13,7 +13,10 @@ const styles = theme => ({
     width: "100%",
     padding: theme.xsSpace,
     fontSize: theme.mdSpace,
-    borderRadius: "4px"
+    borderRadius: "4px",
+    "&:focus": {
+      outlineColor: theme.primary
+    }
   },
   formLabel: {
     ...theme.small,
@@ -49,6 +52,11 @@ const FormInput = props => {
   );
 };
 
-FormInput.propTypes = { classes: PropTypes.any };
+FormInput.propTypes = {
+  classes: PropTypes.any,
+  name: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
+};
 
 export default withStyles(styles)(FormInput);

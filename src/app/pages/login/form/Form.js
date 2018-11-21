@@ -1,8 +1,7 @@
-import Button from "../button/Button";
-import Separator from "../separator/Separator";
-import FormInput from "./input/FormInput";
-import color from "color";
-import theme from "../../assets/jss/theme";
+import Button from "../../../../components/button/Button";
+import Separator from "../../../../components/separator/Separator";
+import FormInput from "../../../../components/form/input/FormInput";
+import theme from "../../../../assets/jss/theme";
 import * as PropTypes from "prop-types";
 import React from "react";
 import withStyles from "react-jss";
@@ -18,12 +17,16 @@ const styles = theme => ({
   }
 });
 
-const FormLogin = props => {
+const Form = props => {
   const { classes } = props;
   return (
     <form onSubmit={props.onSubmit}>
       <div className={classes.buttonGroup}>
-        <Button onClick={props.onClickFacebook} text={"Facebook"} />
+        <Button
+          onClick={props.onClickFacebook}
+          text={"Facebook"}
+          backColor={"#4469B0"}
+        />
         <Button
           onClick={props.onClickGoogle}
           text={"Google"}
@@ -40,21 +43,19 @@ const FormLogin = props => {
         <Button
           onClick={props.onSubmit}
           text={"Sign In"}
-          backColor={color(theme.primary)
-            .lighten(0.35)
-            .hex()}
-          fontColor={theme.textBlack}
+          backColor={theme.secondary}
+          fontColor={theme.text}
         />
       </div>
     </form>
   );
 };
 
-FormLogin.propTypes = {
+Form.propTypes = {
   onSubmit: PropTypes.func,
   classes: PropTypes.any,
   onClickFacebook: PropTypes.func,
   onClickGoogle: PropTypes.func
 };
 
-export default withStyles(styles)(FormLogin);
+export default withStyles(styles)(Form);

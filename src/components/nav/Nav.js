@@ -1,6 +1,8 @@
 import React from "react";
 import withStyles from "react-jss";
-import { Link } from "react-router-dom";
+import * as PropTypes from "prop-types";
+import NavItem from "./nav_item/NavItem";
+
 
 const styles = theme => ({
   nav: {
@@ -12,18 +14,15 @@ const styles = theme => ({
     margin: "0 0 0 auto"
   },
   menuItem: {
-    listStyle: "none"
+    listStyle: "none",
+    display: "flex",
+    alignItems: "center"
   },
   menuLink: {
     cursor: "pointer",
-    padding: "20px",
     display: "block",
     margin: 0,
     outline: 0,
-    font: {
-      size: 16,
-      weight: 500
-    },
     textDecoration: "none",
     color: theme.text,
     transition: "all .1s ease-in-out",
@@ -39,9 +38,11 @@ const Nav = props => {
     <nav className={classes.nav}>
       <ul className={classes.menuContainer}>
         <li className={classes.menuItem}>
-          <Link to={props.link} className={classes.menuLink}>
-            {props.text}
-          </Link>
+          <NavItem
+            text={props.text}
+            link={props.link}
+            className={classes.menuLink}
+          />
         </li>
       </ul>
     </nav>
@@ -50,7 +51,14 @@ const Nav = props => {
 
 Nav.defaultProps = {
   link: "/",
-  text: "Home"
-}
+  text: "Index",
+  brandHome: "/"
+};
+
+Nav.propTypes = {
+  link: PropTypes.string.isRequired,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  brandHome: PropTypes.string
+};
 
 export default withStyles(styles)(Nav);

@@ -1,16 +1,15 @@
-import Nav from "../nav/Nav";
-import React from "react";
+import Container from "../../../components/container/Container";
 import { Link } from "react-router-dom";
-
+import Nav from "../../../components/nav/Nav";
+import * as PropTypes from "prop-types";
+import React from "react";
 import withStyles from "react-jss";
-
-import Container from "../container/Container";
 
 const styles = theme => ({
   navbar: {
     background: theme.secondary,
     color: theme.text,
-    "box-shadow": "0 5px 6px rgba(0, 0, 0, 0.16)"
+    position: "relative"
   },
   wrapper: {
     display: "flex",
@@ -32,13 +31,13 @@ const styles = theme => ({
   }
 });
 
-const Navbar = props => {
+const NavbarView = props => {
   const { classes } = props;
   return (
     <div className={classes.navbar}>
       <Container>
         <div className={classes.wrapper}>
-          <Link to={"/"} className={classes.brand}>
+          <Link to={props.brandHome} className={classes.brand}>
             <b>Brand</b>
             <span className={classes.brandStrong}>logo</span>
           </Link>
@@ -49,4 +48,17 @@ const Navbar = props => {
   );
 };
 
-export default withStyles(styles)(Navbar);
+NavbarView.propTypes = {
+  link: PropTypes.string.isRequired,
+  classes: PropTypes.any,
+  text: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  brandHome: PropTypes.string
+};
+
+NavbarView.defaultProps = {
+  link: "/",
+  text: "Index",
+  brandHome: "/"
+};
+
+export default withStyles(styles)(NavbarView);
