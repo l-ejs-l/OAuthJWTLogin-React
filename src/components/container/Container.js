@@ -1,21 +1,27 @@
 import React from "react";
 import withStyles from "react-jss";
+import PropTypes from "prop-types";
 
 const styles = {
-  container: props => ({
+  wrap: props => ({
+    ...props.customStyles,
     width: "90%",
-    margin: "0 auto",
-    ...props.customStyles
+    padding: "0 20px",
+    margin: "0 auto"
   }),
-  "@media screen and (min-width: 576px)": {
-    container: {
-      width: "80%"
+  "@media screen and (max-width: 600px)": {
+    wrap: {
+      width: "100%"
     }
   }
 };
 
 const Container = props => {
-  return <div className={props.classes.container}>{props.children}</div>;
+  return <div className={props.classes.wrap}>{props.children}</div>;
+};
+
+Container.propTypes = {
+  customStyles: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
 export default withStyles(styles)(Container);

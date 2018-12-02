@@ -14,19 +14,24 @@ import PrivateRoute from "../components/PrivateRoute";
 
 class App extends Component {
   render() {
+    const { logged } = this.props;
     return (
       <div>
         <Router>
           <Switch>
             {routes.map(
               (route, index) =>
-                route.scope === "public" && !this.props.logged ? (
+                route.scope === "public" && !logged ? (
                   <Route key={index} {...route} />
                 ) : (
                   <PrivateRoute key={index} {...route} />
                 )
             )}
-            <Redirect to={"/"} />
+            {/*{this.props.logged ? (*/}
+              {/*<Redirect to={"/home"} />*/}
+            {/*) : (*/}
+              {/*<Redirect to={"/"} />*/}
+            {/*)}*/}
           </Switch>
         </Router>
       </div>

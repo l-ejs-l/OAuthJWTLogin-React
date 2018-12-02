@@ -10,7 +10,8 @@ const styles = theme => ({
   },
   appLogo: {
     animation: "App-logo-spin infinite 20s linear",
-    height: "40vmin"
+    height: "40vmin",
+    fill: "red"
   },
   appHeader: props => ({
     backgroundColor: "#282c34",

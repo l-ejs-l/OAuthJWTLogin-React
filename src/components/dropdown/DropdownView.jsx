@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ActionButton from "../button/ActionButton";
 import withStyles from "react-jss";
 import PropTypes from "prop-types";
+import theme from "../../assets/jss/theme";
+import Button from "../button/Button";
 
-const styles = {
+const styles = theme => ({
   menuDropdownOff: {
     position: "absolute",
     right: 0,
@@ -16,7 +17,24 @@ const styles = {
     display: "block",
     animationName: "dropdown",
     animationDuration: ".2s",
-    animationFillMode: "forwards"
+    animationFillMode: "forwards",
+    zIndex: 300
+    // backgroundColor: color(theme.secondary)
+    //   .darken(0.3)
+    //   .hex()
+  },
+  menuItem: {
+    listStyle: "none"
+  },
+  standarItem: {
+    padding: theme.smSpace
+  },
+  link: {
+    extend: "standarItem"
+  },
+  action: {
+    extend: "standarItem",
+    padding: 40
   },
   "@keyframes dropdown": {
     "0%": {
@@ -32,7 +50,7 @@ const styles = {
       opacity: 1
     }
   }
-};
+});
 
 /**
  * Renders a menu with an on click effect to show it. It needs a parent with
@@ -54,14 +72,21 @@ const DropdownView = props => {
       {items.map((item, index) => {
         if (item.type === "Link") {
           return (
-            <li key={index}>
-              <Link to={item.to}>{item.text}</Link>
+            <li className={classes.menuItem} key={index}>
+              <Button btnWidth={"100%"} text={item.text}>
+                <Link className={classes.link} to={item.to} />
+              </Button>
             </li>
           );
         } else if (item.type === "ActionButton") {
           return (
-            <li key={index}>
-              <ActionButton action={item.action}>{item.text}</ActionButton>
+            <li className={classes.menuItem} key={index}>
+              <Button
+                backColor={theme.secondary}
+                onClick={item.action}
+                btnWidth={"100%"}
+                text={item.text}
+              />
             </li>
           );
         }

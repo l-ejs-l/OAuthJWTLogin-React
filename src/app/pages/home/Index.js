@@ -1,21 +1,21 @@
 import React from "react";
-import ReactHome from "../../../components/react-home/ReactHome";
-import Navbar from "../../common/navbar/Navbar";
+import { IndexView } from "./IndexView";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-const Index = () => {
-  return (
-    <div>
-      <header>
-        <Navbar link={"/login"} text={"Login"} />
-      </header>
-      <ReactHome
-        navHeight={"58px"}
-        title={"React Login App Using OAuth2 & JWT"}
-        link={"Login"}
-        route={"/login"}
-      />
-    </div>
-  );
+const Index = props => {
+  if (props.logged) {
+    return <Redirect to={"/home"} />;
+  } else {
+    return <IndexView />;
+  }
 };
 
-export default Index;
+const mapStateToProps = ({ auth: { logged } }) => {
+  return { logged };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Index);

@@ -40,9 +40,7 @@ const styles = theme => ({
 const LoginView = props => {
   return (
     <div>
-      <header>
-        <Navbar link={"/"} text={"Home"} />
-      </header>
+      <Navbar link={"/"} text={"Home"} />
       <Container>
         <div className={props.classes.loginWrapper}>
           <h1 className={props.classes.loginTitle}>Sign In With</h1>

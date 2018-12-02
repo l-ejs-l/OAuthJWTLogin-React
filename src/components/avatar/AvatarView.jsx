@@ -29,7 +29,6 @@ const styles = {
     borderRadius: "50%",
     "&:hover": {
       opacity: 0.5,
-      // backgroundColor: "rgba(0, 0, 0, 1)",
       boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.2)"
     }
   },
@@ -42,11 +41,15 @@ const styles = {
   arrowDown: props => ({
     border: `solid ${props.font.color}`,
     borderWidth: "0 2px 2px 0",
-    display: "inline-block",
     padding: "3px",
     transform: "rotate(45deg)",
     marginLeft: "5px"
-  })
+  }),
+  "@media (max-width: 600px)": {
+    arrowDown: {
+      display: "none"
+    }
+  }
 };
 
 const Avatar = props => {

@@ -36,14 +36,14 @@ const Button = props => {
   return (
     <button onClick={props.onClick} className={classes.button}>
       <div className={classes.hover}>
-        <div className={classes.container}>{props.text}</div>
+        <div className={classes.container}>{props.text || props.children}</div>
       </div>
     </button>
   );
 };
 
 Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   classes: PropTypes.any,
   btnWidth: PropTypes.string,
   backColor: PropTypes.string,
