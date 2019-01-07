@@ -20,6 +20,14 @@ const theme = {
   p: {
     fontSize: "1em",
     lineHeight: "1.2em"
+  },
+  title: {
+    fontSize: "2.5em",
+    lineHeight: "1.5em"
+  },
+  subtitle: {
+    fontSize: "1.5em",
+    lineHeight: "1.3em"
   }
 };
 

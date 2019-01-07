@@ -4,19 +4,23 @@ import Nav from "../../../components/nav/Nav";
 import * as PropTypes from "prop-types";
 import React from "react";
 import withStyles from "react-jss";
+import color from "color";
 
 const styles = theme => ({
   navbar: {
-    background: theme.secondary,
+    background: color(theme.secondary)
+      .darken(0.3)
+      .hex(),
     color: theme.text,
-    position: "relative"
+    position: "relative",
+    boxShadow: "0 1px 3px rgba(0, 0, 0, .5)"
   },
   wrapper: {
     display: "flex",
     "align-items": "center"
   },
   brand: {
-    flex: "0 0 100px",
+    flex: "0 0 80px",
     letterSpacing: "2px",
     borderBottom: `2px solid ${theme.text}`,
     paddingBottom: "5px",
@@ -24,17 +28,28 @@ const styles = theme => ({
     cursor: "pointer",
     color: theme.text,
     textDecoration: "none",
-    textAlign: "center"
+    textAlign: "center",
+    ...theme.small
   },
   brandStrong: {
     color: theme.primary
+  },
+  "@media screen and (min-width: 600px)": {
+    brand: {
+      ...theme.p
+    }
+  },
+  "@media screen and (min-width: 1200px)": {
+    showcase: {
+      height: "420px"
+    }
   }
 });
 
 const NavbarView = props => {
   const { classes } = props;
   return (
-    <div className={classes.navbar}>
+    <header className={classes.navbar}>
       <Container>
         <div className={classes.wrapper}>
           <Link to={props.brandHome} className={classes.brand}>
@@ -44,7 +59,7 @@ const NavbarView = props => {
           <Nav link={props.link} text={props.text} />
         </div>
       </Container>
-    </div>
+    </header>
   );
 };
 
